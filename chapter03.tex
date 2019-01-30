@@ -1,0 +1,170 @@
+\section{Stability of fixed points}
+\label{chap03}
+
+\subsection{Basic definitions}
+
+\textbf{Consider}: $\dot{x}=f(x,t), \quad x \in R^n, \quad f \in C^1$\\
+\textbf{Assume}: $x=0$ is a fixed point, i.e., $f(0,t)=0, \quad \forall t \in R$ 
+\textbf{Question}: How does the dynamical system behave near its equilibrium state?
+
+\subsubsection{Stability, due Lyapunov}
+$x=0$ is stable if $\forall t_0, \forall \epsilon > 0 \text{ (small enough)}, \exists \delta=\delta(t_0, \epsilon)$, such that for $\forall x_0 \in R^n \text{ with } |x_0| 	\leq \delta$, we have:
+$$|x(t;t_0,x_0)|\leq\epsilon, \quad \forall t \geq t_0$$
+
+\subsubsection{Asymptotic stability}
+$x=0$ is asymptotically stable if:
+\begin{itemize}
+    \item it is stable
+    \item $\forall t_0, \quad \exists \delta_0(t_0)$ such that $\forall x_0: \quad |x_0|\leq \delta_0$: \\
+    $$\lim_{t\to\infty} x(t;t_0, x_0)=0$$
+\end{itemize}
+
+\subsubsection{Domain of attraction (fixed point assumed to be 0)}
+Set of all $x_0$'s for which: $x(t;t_0,x_0)\to0, \text{ as } t\to\infty$
+
+\textbf{Example 2}: Damped oscillator\\
+Check out page 32 of PDF with notes. To understand how he derives the rate of energy change, first check out how he defines $x_1$ and $x_2$ and then take the derivative of the energy E with respect to time:
+\begin{align}
+    \frac{dE}{dt}=\frac{1}{2}\cdot2x_2\cdot\dot{x_2}+\sin x_1\cdot x_2=x_2(\dot{x_2}+\sin x_1) = x_2(-cx_2-\sin x_1 + \sin x_1)=-cx_2^2  
+\end{align}
+
+\subsubsection{Invariant set}
+S $\subset$ P is an invariant set for the flow map $F^t: p \to p$ if $F^t(S)=S, \forall t\in R$ (meaning, if I take an initial condition inside the set, I stay in the set).
+
+\subsubsection{Instability}
+$x=0$ is unstable if it is not stable.
+
+\section{Stability based on linearization (for autonomous systems)}
+We are in a multivariate setting! $x$ is a vector, and so is f and fixed point p.
+\begin{align}
+    \dot{x}=f(x), \quad x \in R^n, \quad f \in C^1
+\end{align}
+\textbf{Question:} How can we systematically derive/determine the stability of the fixed point of the preceding system?\\
+
+We assume that $f(p)=0 \Rightarrow y=x-p$
+ODE (1) in transformed coordinates: $$\dot{y}=f(p+y)=f(p)+Df(p)y+O(|y|^2)$$
+$$\dot{y}=Df(p)y+O(|y|^2)$$
+Define the linearization of (1) at the fixed point p:
+$$\dot{y}=Ay, \quad y\in R^n, \quad A:=Df(p) \in R^{n\times n}$$
+\[
+Df(p)=
+  \begin{bmatrix}
+    \frac{\partial f_1}{\partial x_1} & \frac{\partial f_1}{\partial x_2} & ... & \frac{\partial f_1}{\partial x_n} \\
+    .\\
+    .\\
+    .\\
+    \frac{\partial f_n}{\partial x_1} & \frac{\partial f_n}{\partial x_2} &...& \frac{\partial f_n}{\partial x_n}
+  \end{bmatrix}
+\]
+
+\textbf{To study:}
+\begin{itemize}
+    \item stability of y=0 in $\dot{y}=Ay$
+    \item relevance of this for the nonlinear system defined in the beginning of this section
+\end{itemize}
+
+\subsection{Review of linear dynamical systems}
+$$\dot{y}=A(t)y, \quad y\in R^n, \quad A \in R^{n\times n}, \quad A\in C^0_t$$
+\begin{itemize}
+    \item Global existence and uniqueness guaranteed
+    \item Superposition principle: linear combination of solutions is also a solution
+    \item $\exists$ a set of n linearly independent solutions: $[\phi_1(t), \phi_2(t), ..., \phi_n(t)]$
+    \item General soluton: $y(t)=\sum_{i=1}^n c_i\phi_i$ \\
+    $\Rightarrow y(t)=[\phi_1(t), \phi_2(t), ..., \phi_n(t)]\cdot[c_1, ... c_n] = \Psi(t)c$ \\
+    Where $\Psi$ is the \textbf{fundamental matrix solution}\\
+    Hence: $\dot{= \Psi(t)}= A\Psi(t)$
+    \item IVP: $$y(t_0)=y_0 \Rightarrow \Psi(t_0)c=y_0 \Rightarrow y(t)=\Psi(t)\cdot [\Psi(t_0)]^{-1}y_0$$
+    Where $\Psi(t)\cdot [\Psi(t_0)]^{-1} = \phi(t)=F_{t_0}^t$
+    $\phi$ is the normalized fundamental matrix, which is the flow map.
+    $$\phi(t_0)=I$$
+    \item Practical construction of solutions
+        \begin{itemize}
+            \item Autonomous case: $\dot{x}=Ax$ only!
+            \item Explicit solution: aqui andámos a brincar com $\phi$s e com McLaurin series da função exponencial.
+            \item Solution from eigenfunctions
+        \end{itemize}
+\end{itemize}
+
+\subsection{Stability of fixed points in autonomous linear systems}
+ \begin{theorem}
+ \textbf{Stability of y=0 in the linear system $\dot{y}=Ay$}
+    \begin{enumerate}
+        \item Assume $Re(\lambda_j)<0, \quad \forall j$\\
+        Then $y=0$ is asymptotically stable.
+        \item Assume $Re(\lambda_j)\leq0, \quad \forall j$ and $\forall\lambda_k: Re\lambda_k=0$, we have $a_k=g_k$\\
+        Then $y=0$ is stable.
+        \item Assume that $\exists k: Re(\lambda_k)>0$\\
+        Then $y=0$ is unstable.
+    \end{enumerate}
+ \end{theorem}
+ 
+ \subsection{Stability of fixed points in non-linear systems}
+ Consider two dynamical (autonomous) systems:
+ \begin{enumerate}
+     \item $\dot{x}=f(x), x\in R^n, f \in C^1 \Rightarrow F^t: x_0 \to x(t;x_0)$
+    \item $\dot{x}=g(x), x\in R^n, g \in C^1 \Rightarrow G^t: x_0 \to x(t;x_0)$
+ \end{enumerate}
+ 
+ \begin{definition}
+ The dynamical systems (1) and (2) are $C^k$ equivalent ($k\in\N$) on an open set $U\in\R^n$, if $\exists$ a $C^k$-diffeomorphism $h: U\to U$ that maps orbits of (1) into orbits of (2), preserving orientation but not becessarily the exact parameterization of the orbit by time.\\
+ Specifically: $\forall x\in U, \forall t \in \R: \exists t_2 \in\R$ such that:
+ $$h(F^{t_1}(x))=G^{t_2}(h(x))$$
+ \end{definition}
+ 
+ \begin{definition}
+ For $k=0$, $C^k$-equivalence is also called topological equivalence, meaning a continuous invertible map that takes orbits of one system to orbits of the othre one. Such an $h: U\to U$ is called homeomorphism (and the two sets are called homeomorphic sets).
+ \end{definition}
+ 
+ \begin{quote}
+     “Here topologically equivalent means that there is a homeomorphism (a continuous deformation with a continuous inverse) that maps one local phase portrait onto the other, such that trajectories map onto trajectories and the sense of time (the direction of the arrows) is preserved.
+    \textbf{Intuitively, two phase portraits are topologically equivalent if one is a distorted version of the other. Bending and warping are allowed, but not ripping, so closed orbits must remain closed, trajectories connecting saddle points must not be broken, etc.}”
+Excerpt From: Steven H. Strogatz. “Nonlinear Dynamics and Chaos: With Applications to Physics, Biology, Chemistry, and Engineering”. Apple Books. 
+ \end{quote}
+ 
+ \begin{definition}
+ $x=x_0$ is a hyperbolic fixed point of (1) if the eigenvalues of its linearization (2) satisfy $Re(\lambda_i)\neq0, \quad \forall i=1,...,n$
+ \end{definition}
+ 
+ \begin{theorem}
+ \textbf{Implicit function theorem}\\
+ $\exists !$ nearby solution to $F(x,\epsilon)=0$ of the form  $x_{\epsilon}=x_0+O(\epsilon)$, provided that $D_xF(x_0, 0)$ is non-singular and $F(x,\epsilon)\in C^0$ ($x_{\epsilon}$ is as smooth in $\epsilon$ as $F(x,\epsilon)$) 
+ \end{theorem}
+ 
+ \textbf{Claim:} the linearized stability type of a hyperbolic fixed point is preserved under small perturbations to the linear system ($\dot{x}=f(x)$). Again this is more than just persisting hyperbolicity. Stability type is also preserved.\\
+ In contrast, for non-hyperbolic fixed points, the smallest perturbation may change their stability type.
+ 
+ \begin{theorem}
+ \textbf{Hartman-Grobman}: if the fixed point $x_0$ of the nonlinear system (1) is hyperbolic, then (1) is topologically equivalent to its linearization (2) in a neighborhood of $x_0$.
+ \end{theorem}
+ \textbf{Consequence:} for hyperbolic fixed points, linearization predicts the correct stability type AND orbit geometry near $x_0$.\\
+ 
+ \textbf{Consequence 2:} if you have eigenvalues with zero real part (they lie on the imaginary axis), then the fixed point is not hyperbolic and you cannot apply Hartman-Grobman.
+ 
+ \subsubsection{A sufficient and necessary condition for $Re(\lambda_i) <0, \forall i$}
+ \textbf{It's the Routh-Hurwitz stability criterion!} Check out the introduction of the corresponding Wikipedia article if in doubt.\\
+ The procedure is to define a series of determinants.
+ $$Re(\lambda_i)<0 \iff D_i>0, \quad 1\leq i\leq n$$
+ 
+ \subsection{Lyapunov's direct (2nd) method for stability}
+
+How to establish stability without reliance on linearization?
+$$\dot{x}=f(x), \quad f\in C^1, \quad x \in \R^n, \quad \dot{x_0}=f(x_0)=0$$
+Assume: $\exists V: U \to \R, \quad V \in C^1(U), \quad U \subset \R^n \text{open}, \quad x_0 \in U$, such that:
+
+ \begin{tcolorbox}
+ \begin{itemize}
+    \item $V(x_0)=0$
+    \item $V(x)>0, \quad x\in U-{x_0}$
+    \item $\dot{V}(x)=\langle DV(x), f(x)\rangle\leq 0, \quad x\in U$ 
+ \end{itemize}
+ \end{tcolorbox}
+ 
+ \begin{enumerate}
+     \item  Then $x=x_0$ is \textbf{(Lyapunov) stable} and V is a \textbf{Lyapunov function}.
+     \item \textbf{Asymptotic stability} if: $\dot{V}<0$
+     \item \textbf{Unstable} if: 
+     \begin{itemize}
+         \item $\dot{V}>0$
+         \item Or $V(x)$ is indefinite and $\dot{V}$ is semidefinite (psd or nsd). 
+     \end{itemize}
+ \end{enumerate}

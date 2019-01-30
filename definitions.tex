@@ -1,0 +1,118 @@
+\section{Tricks of the nonlinear dynamic trade}
+
+\subsection{Commonly used tricks}
+\begin{itemize}
+    \item Roots of quadratic polynomial: 
+$$x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$$
+    \item While doing a near identity transform: $\frac{1}{1+z}=1-z + )(z^2)$
+    \item \textbf{Taylor series}: $$\sum_{n=0} ^ {\infty} \frac {f^{(n)}(a)}{n!} (x-a)^{n}$$
+    \item Taking full derivative of a functional:
+$$\frac{dL}{dt}
+= \frac{\partial L}{\partial t} + \sum_{i=1}^n \frac{\partial L}{\partial x_i}\frac{dx_i}{dt}$$
+    \item \textbf{Some trig identities:}
+    $$\sin(\alpha \pm \beta) = \sin \alpha \cos \beta \pm \cos \alpha \sin \beta$$
+    $$\cos(\alpha \pm \beta) = \cos \alpha \cos \beta \mp \sin \alpha \sin \beta$$
+    \textbf{Power reducing identities:}
+    $$\sin^2\theta = \frac{1 - \cos (2\theta)}{2}$$
+    $$\cos^2\theta = \frac{1 + \cos (2\theta)}{2}$$
+    $$\sin^2\theta \cos^2\theta = \frac{1 - \cos (4\theta)}{8}$$
+    $$\sin^3\theta = \frac{3 \sin\theta - \sin (3\theta)}{4}$$
+    $$\cos^3\theta = \frac{3 \cos\theta + \cos (3\theta)}{4}$$
+    $$\sin^3\theta \cos^3\theta = \frac{3\sin (2\theta) - \sin (6\theta)}{32}$$
+    $$\sin^4\theta = \frac{3 - 4 \cos (2\theta) + \cos (4\theta)}{8}$$
+    $$\cos^4\theta = \frac{3 + 4 \cos (2\theta) + \cos (4\theta)}{8}$$
+    $$\sin^4\theta \cos^4\theta = \frac{3-4\cos (4\theta) + \cos (8\theta)}{128}$$
+    \textbf{Product-to-sum identities:}
+    $$2\cos \theta \cos \varphi = {{\cos(\theta - \varphi) + \cos(\theta + \varphi)}}$$
+    $$2\sin \theta \sin \varphi = {{\cos(\theta - \varphi) - \cos(\theta + \varphi)}}$$
+    $$2\sin \theta \cos \varphi = {{\sin(\theta + \varphi) + \sin(\theta - \varphi)} }$$
+    $$2\cos \theta \sin \varphi = {{\sin(\theta + \varphi) - \sin(\theta - \varphi)} }$$
+   \item Linear algebra: 
+\quad A =
+\begin{pmatrix}
+    a & b\\
+    c & d
+\end{pmatrix}
+\begin{enumerate}
+    \item \textbf{Trace}: $\operatorname{tr}(A) = \sum_{i=1}^{3} a_{ii}=a+d$
+    \item \textbf{Inverse:} 
+    $B^{-1} = \frac{1}{ad-cb}$
+    \begin{pmatrix}
+    d & -b\\
+    -c & a
+\end{pmatrix}
+\end{enumerate}
+
+\end{itemize}
+
+\section{Useful definitions from lecture}
+\begin{itemize}
+    \item \textbf{Algebraic multiplicity of an eigenvalue} = number of times lambda appears as a root of the characteristic polynomial
+    \item \textbf{Geometric multiplicity} = dimension of the eigenspace for the eigenvalue lambda. The eigenspace for lambda is given by:
+    $$N(A-\lambda I)$$
+    $$\text{dim(original matrix)=rank+nullity}$$
+    That's how he gets that the geometric multiplicity is 1! Also note that:
+    $$\text{geometric multiplicity}\leq \text{algebraic multiplicity}$$
+\end{itemize}
+
+\subsection{ODEs and PDEs}
+\subsubsection{Separable differentiable equations}
+You separate the $y$ and $dy$ from the $x$ and $dx$. Then you can integrate both sides. \textbf{It is usually the first thing you try!}
+\begin{align*}
+    &\frac{dy}{dx} = \frac{-x}{ye^{x^2}}
+    \iff y\cdot dy=-xe^{x^2}dx\\
+    & \int_{-\infty}^{+\infty} y\cdot dy = \int_{-\infty}^{+\infty}-xe^{x^2}dx \\
+    & \iff \frac{y^2}{2} + C_1 = \frac{1}{2}e^{-x^2}+C_2
+\end{align*}
+This last formulation is called \textbf{the implicit form}  . And then you solve for y.
+
+\subsubsection{Exact equations}
+Consider: $$M(x,y) + N(x,y)\frac{dy}{dx} = 0$$\\
+If: $$\frac{\partial M}{\partial y} = \frac{\partial N}{\partial x}$$
+Then you have an \textbf{exact differential equation} and there is a $\Psi$ such that:
+$$\frac{d\Psi(x,y)}{dx}=0$$
+and 
+$$\Psi(x,y)=C, \quad \frac{\partial \Psi}{\partial x}=M, \quad
+\frac{\partial \Psi}{\partial y}=N$$
+
+\href{https://www.khanacademy.org/math/differential-equations/first-order-differential-equations/modal/v/exact-equations-example-2}{Example from Khan Academy} to know how to solve this kind of problem.
+
+\subsection{Second order differential equations}
+\subsubsection{Linear}
+$$a(x)y''+b(x)y'+c(x)y=d(x)$$
+
+\subsubsection{Homogeneous 2nd order differential equations}
+$$Ay''+By'+Cy=0$$
+\begin{itemize}
+    \item \textbf{Superposition applies:} If $g(x)$ and $h(x)$ are both solutions, then $a\cdotg(x)+b\cdoth(x)$ is also a solution.
+    \item \textbf{Characteristic equation}: $Ar^2+Br+C=d(x)$
+    \item \textbf{Most general solution:} $y(x)=C_1e^{r_1x}+C_2e^{r_2x}$
+    \item \textbf{Solution for complex roots}: $r=\lambda \pm \mu i$
+    $$y(x)=C_1e^{(\lambda + \mu i)x}+C_2e^{(\lambda - \mu i)x}$$
+$$y(x)= e^{\lambda x}(C_1e^{\mu xi}+C_2e^{-\mu xi})$$
+Given that: $e^{ix}=cosx+isinx$\\
+We get:
+$$y=e^{\lambda x}(C_3cos(\mu x)+C_4sin(\mu x))$$
+    \item \textbf{Repeated roots:} similar to what you had before but now you need to add an x in front!
+$$y(x)=C_1\cdot x \cdot e^{r_1x}+C_2e^{r_2x}$$
+\end{itemize}
+
+\subsubsection{Non-homogeneous ODE}
+$$Ay''+By'+Cy=g(x)$$
+You define:
+\begin{itemize}
+    \item \textbf{Homogeneous solution}
+    \item \textbf{Particular solution}.
+You can use the \textbf{method of undetermined coefficients}.
+\end{itemize}
+And you find a  \\
+If $g(x)$ is of the form:
+\begin{align}
+    k e^{a x} \quad \rightarrow \quad C e^{a x}\\
+    k x^n, n = 0, 1, 2 \ldots \quad \rightarrow \quad  \sum_{i=0}^n K_i x^i\\
+    k \cos(a x) \text{ or } k \sin(a x) \quad \rightarrow \quad  K \cos(a x) + M \sin(a x)\\
+    k e^{a x} \cos(b x) \text{ or } ke^{a x} \sin(b x) \quad \rightarrow \quad e^{a x} (K \cos(b x) + M \sin(b x))
+    % \left(\sum_{i=0}^n k_i x^i\right) \cos(b x) \text{ or }\ \left(\sum_{i=0}^n k_i x^i\right) \sin(b x) \quad \rightarrow \quad \left(\sum_{i=0}^n Q_i x^i\right) \cos(b x) + \left(\sum_{i=0}^n R_i x^i\right) \sin(b x)\\
+    % \left(\sum_{i=0}^n k_i x^i\right) e^{a x} \cos(b x) \text{ or } \left(\sum_{i=0}^n k_i x^i\right) e^{a x} \sin(b x) \quad \rightarrow \quad e^{a x} \left(\left(\sum_{i=0}^n Q_i x^i\right) \cos(b x) + \left(\sum_{i=0}^n R_i x^i\right) \sin(b x)\right) 
+\end{align}
+
